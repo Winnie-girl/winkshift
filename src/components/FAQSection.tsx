@@ -36,34 +36,34 @@ export const FAQSection = () => {
     <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-300">
             Everything you need to know about working with AI automation
           </p>
         </div>
         
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div key={index} className="bg-gray-800/50 rounded-2xl shadow-md overflow-hidden border border-gray-700/30">
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors"
+                className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-gray-700/30 transition-colors"
               >
-                <span className="text-lg font-semibold text-gray-900 pr-4">
+                <span className="text-lg font-semibold text-white pr-4">
                   {faq.question}
                 </span>
                 {openIndex === index ? (
-                  <ChevronUp className="h-6 w-6 text-gray-500 flex-shrink-0" />
+                  <ChevronUp className="h-6 w-6 text-gray-400 flex-shrink-0" />
                 ) : (
-                  <ChevronDown className="h-6 w-6 text-gray-500 flex-shrink-0" />
+                  <ChevronDown className="h-6 w-6 text-gray-400 flex-shrink-0" />
                 )}
               </button>
               
               {openIndex === index && (
                 <div className="px-8 pb-6">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-300 leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>

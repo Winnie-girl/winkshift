@@ -13,13 +13,13 @@ export const NewsletterSection = () => {
   };
 
   return (
-    <section id="newsletter" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
+    <section id="newsletter" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800/50">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+        <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
           Stay Ahead of the AI Curve
         </h2>
         
-        <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
           Get weekly AI insights, new templates, and expert tips delivered straight to your inbox. No spam, just value.
         </p>
         
@@ -31,19 +31,19 @@ export const NewsletterSection = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-coral-500 focus:border-transparent"
+              className="w-full pl-12 pr-4 py-4 border border-gray-600 bg-gray-800/50 text-white rounded-full focus:ring-2 focus:ring-cyan-500 focus:border-transparent placeholder-gray-400"
               required
             />
           </div>
           <button
             type="submit"
-            className="bg-coral-500 hover:bg-coral-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
+            className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
           >
             Subscribe
           </button>
         </form>
         
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-400">
           We respect your privacy and will never share your information with third parties.
         </p>
       </div>
