@@ -49,7 +49,7 @@ export const HeroSection = () => {
           {/* Right Column - Placeholder for future image */}
           <div className={`lg:pl-12 transition-all duration-1000 delay-600 ${isVisible ? 'animate-slide-in-right' : 'opacity-0'}`}>
             <div className="relative">
-              <div className="aspect-square max-w-md mx-auto bg-gradient-to-br from-blue-600/30 to-purple-600/30 rounded-3xl shadow-2xl border border-gray-700/30 flex items-center justify-center hover:scale-105 transition-transform duration-500 animate-float">
+              <div className="aspect-square max-w-md mx-auto bg-gradient-to-br from-blue-600/30 to-purple-600/30 rounded-3xl shadow-2xl border border-gray-700/30 flex items-center justify-center hover:scale-105 transition-transform duration-500">
                 <span className="text-gray-400 text-center px-8">
                   Your image will go here
                 </span>
