@@ -75,9 +75,7 @@ If you’re looking for a hands-off solution, I design tailored AI-powered syste
 
 
           </h4>
-            <p className="text-gray-300 mb-8 leading-relaxed">
-              For businesses that need a done-for-you solution. I'll design and build bespoke AI-powered automations to streamline your operations, save you 10+ hours a week, and help you scale.
-            </p>
+            <p className="text-gray-300 mb-8 leading-relaxed">Custom AI Automation If you’re looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.</p>
             <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group w-full justify-center">
               Build My Automation
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
