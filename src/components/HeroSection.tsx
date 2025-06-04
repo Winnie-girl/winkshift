@@ -37,15 +37,13 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Placeholder for future image */}
           <div className="lg:pl-12">
             <div className="relative">
-              <div className="aspect-square max-w-md mx-auto bg-gradient-to-br from-blue-600/30 to-purple-600/30 rounded-3xl overflow-hidden shadow-2xl border border-gray-700/30">
-                <img 
-                  src="/lovable-uploads/2227b81b-c0e0-477b-a2f7-906e0b97b4a9.png"
-                  alt="Tam - AI Educator and Consultant"
-                  className="w-full h-full object-cover"
-                />
+              <div className="aspect-square max-w-md mx-auto bg-gradient-to-br from-blue-600/30 to-purple-600/30 rounded-3xl shadow-2xl border border-gray-700/30 flex items-center justify-center">
+                <span className="text-gray-400 text-center px-8">
+                  Your image will go here
+                </span>
               </div>
               
               {/* Floating elements */}

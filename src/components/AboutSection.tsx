@@ -1,7 +1,9 @@
 
 import { ArrowRight } from "lucide-react";
+
 export const AboutSection = () => {
-  return <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
+  return (
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -10,11 +12,13 @@ export const AboutSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - Image */}
+          {/* Left Column - Placeholder for future image */}
           <div className="order-2 lg:order-1">
             <div className="relative">
-              <div className="aspect-[4/5] max-w-md mx-auto bg-gradient-to-br from-green-100 to-blue-100 rounded-3xl overflow-hidden shadow-xl">
-                <img src="/lovable-uploads/636a0308-2cb3-432d-be78-9f24f19e2f3f.png" alt="Tam with her dog outdoors" className="w-full h-full object-cover" />
+              <div className="aspect-[4/5] max-w-md mx-auto bg-gradient-to-br from-green-100 to-blue-100 rounded-3xl shadow-xl flex items-center justify-center">
+                <span className="text-gray-600 text-center px-8">
+                  Your image will go here
+                </span>
               </div>
             </div>
           </div>
@@ -53,5 +57,6 @@ export const AboutSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
