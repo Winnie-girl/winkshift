@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 
 export const ServicesSection = () => {
@@ -57,7 +56,6 @@ export const ServicesSection = () => {
           </div>
         </div>
 
-        {/* Premium Services */}
         <div className="text-center mb-12">
           <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Ready for a Custom AI Strategy?
@@ -83,7 +81,7 @@ export const ServicesSection = () => {
             <p className="text-gray-300 mb-8 leading-relaxed">
               For leaders who need strategic guidance. In these private sessions, we'll develop a personalized AI roadmap for your business goals, ensuring you make the right investments and decisions.
             </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group w-full justify-center">
+            <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group w-full justify-center">
               Book a Session
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
