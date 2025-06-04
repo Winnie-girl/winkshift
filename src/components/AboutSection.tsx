@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 export const AboutSection = () => {
   return <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -20,7 +21,7 @@ export const AboutSection = () => {
 
           {/* Right Column - Content */}
           <div className="order-1 lg:order-2 space-y-8">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900">Meet Heather Probst</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white">Meet Heather Probst</h2>
             
             <div className="space-y-6 text-gray-600 leading-relaxed">
               <p className="text-lg">
