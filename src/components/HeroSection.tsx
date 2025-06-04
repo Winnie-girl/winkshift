@@ -57,7 +57,7 @@ export const HeroSection = () => {
               
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-cyan-400/30 rounded-full opacity-70 animate-bounce-slow"></div>
-              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-purple-400/30 rounded-full opacity-60 animate-pulse-slow"></div>
+              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-purple-400/30 rounded-full opacity-60"></div>
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -193,8 +192,7 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'typewriter': 'typewriter 2s steps(20) 1s forwards',
 				'shimmer': 'shimmer 2s linear infinite',
-				'bounce-slow': 'bounce 3s infinite',
-				'pulse-slow': 'pulse 3s infinite'
+				'bounce-slow': 'bounce 3s infinite'
 			}
 		}
 	},

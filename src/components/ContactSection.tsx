@@ -11,8 +11,8 @@ export const ContactSection = () => {
         <div ref={ref} className={`bg-gradient-to-r from-gray-800 to-gray-900 rounded-3xl p-16 text-white relative overflow-hidden hover:scale-105 transition-all duration-700 ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}>
           {/* Background decoration */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse-slow"></div>
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-pink-500 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-pink-500 rounded-full blur-3xl" style={{animationDelay: '1s'}}></div>
           </div>
           
           <div className="relative z-10">
