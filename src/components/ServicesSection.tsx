@@ -63,8 +63,8 @@ export const ServicesSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Custom AI Automation */}
           <div className="bg-gray-800/50 rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-700/30">
-            <h4 className="text-2xl font-bold text-white mb-6">Custom AI Automation </h4>
-            <p className="text-gray-300 mb-8 leading-relaxed">Custom AI Automation If you’re looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.</p>
+            <h4 className="text-2xl font-bold text-white mb-6">Custom AI Automation </h4>
+            <p className="text-gray-300 mb-8 leading-relaxed">Custom AI Automation If you're looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.</p>
             <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group w-full justify-center">
               Build My Automation
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -75,7 +75,7 @@ export const ServicesSection = () => {
           <div className="bg-gray-800/50 rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-700/30">
             <h4 className="text-2xl font-bold text-white mb-6">1:1 Consulting</h4>
             <p className="text-gray-300 mb-8 leading-relaxed">
-              For leaders who need strategic guidance. In these private sessions, we'll develop a personalized AI roadmap for your business goals, ensuring you make the right investments and decisions.
+              These private sessions are built for leaders who want clarity. Together, we'll map out a custom AI strategy that aligns with your vision so every decision drives progress.
             </p>
             <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group w-full justify-center">
               Book a Session
