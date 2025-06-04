@@ -20,7 +20,7 @@ export const HeroSection = () => {
                 Winkshift
               </h1>
               
-              <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
+              <p className="text-xl text-white leading-relaxed max-w-lg">
                 A concierge-style, AI automation studio that helps business owners, creators, and service pros set up tailored AI services to each client's unique workflow.
               </p>
             </div>
