@@ -1,18 +1,13 @@
-
 import { useState } from "react";
 import { ArrowRight, ExternalLink } from "lucide-react";
-
 export const Footer = () => {
   const [email, setEmail] = useState("");
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Footer newsletter signup:", email);
     setEmail("");
   };
-
-  return (
-    <footer className="bg-gray-900/80 pt-20 pb-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
+  return <footer className="bg-gray-900/80 pt-20 pb-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
@@ -21,7 +16,7 @@ export const Footer = () => {
               <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">▶</span>
               </div>
-              <span className="text-2xl font-bold text-white">Tam AI</span>
+              <span className="text-2xl font-bold text-white">Winkblink</span>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Making AI automation accessible to everyone, no matter your technical background.
@@ -85,18 +80,8 @@ export const Footer = () => {
             </p>
             
             <form onSubmit={handleSubmit} className="space-y-3 mb-4">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                className="w-full px-4 py-3 border border-gray-600 bg-gray-800/50 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm placeholder-gray-400"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm"
-              >
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email address" className="w-full px-4 py-3 border border-gray-600 bg-gray-800/50 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm placeholder-gray-400" required />
+              <button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm">
                 Subscribe
               </button>
             </form>
@@ -115,6 +100,5 @@ export const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
