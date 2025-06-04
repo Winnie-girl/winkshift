@@ -63,18 +63,7 @@ export const ServicesSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Custom AI Automation */}
           <div className="bg-gray-800/50 rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-700/30">
-            <h4 className="text-2xl font-bold text-white mb-6">Custom AI Automation
-
-
-
-If you’re looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.
-
-
-
-
-
-
-          </h4>
+            <h4 className="text-2xl font-bold text-white mb-6">Custom AI Automation </h4>
             <p className="text-gray-300 mb-8 leading-relaxed">Custom AI Automation If you’re looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.</p>
             <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group w-full justify-center">
               Build My Automation
