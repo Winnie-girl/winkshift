@@ -57,7 +57,7 @@ export const AboutSection = () => {
             </div>
 
             <div className="pt-4">
-              <button className="bg-coral-500 hover:bg-coral-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group">
+              <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group">
                 Work With Me
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
