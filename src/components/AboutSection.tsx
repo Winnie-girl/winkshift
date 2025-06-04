@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 export const AboutSection = () => {
   return <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -22,7 +23,7 @@ export const AboutSection = () => {
           <div className="order-1 lg:order-2 space-y-8">
             <h2 className="text-4xl lg:text-5xl font-bold text-white">Meet Heather Probst</h2>
             
-            <div className="space-y-6 text-gray-600 leading-relaxed">
+            <div className="space-y-6 text-white leading-relaxed">
               <p className="text-lg">I help professionals eliminate backend busywork by designing custom AI workflows that run quietly in the background. From qualifying leads to generating proposals and automating onboarding, I build systems that free you up to focus on what you do best.</p>
               
               <p className="text-lg">My mission is to make AI simple, practical, and accessible — so entrepreneurs and small businesses can use it to run smarter, not harder, no tech expertise required.</p>
