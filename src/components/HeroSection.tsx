@@ -15,9 +15,9 @@ export const HeroSection = () => {
             
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
-                I'm <span className="text-cyan-400 font-bold">Tam</span>,<br />
-                an AI educator &<br />
-                consultant
+                I'm <span className="text-cyan-400 font-bold">Heather</span>,<br />
+                founder of<br />
+                Winkshift
               </h1>
               
               <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
