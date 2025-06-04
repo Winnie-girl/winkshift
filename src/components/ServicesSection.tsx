@@ -1,8 +1,6 @@
 import { ArrowRight } from "lucide-react";
-
 export const ServicesSection = () => {
-  return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
+  return <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <div className="inline-block bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-blue-500/30">
@@ -65,7 +63,18 @@ export const ServicesSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Custom AI Automation */}
           <div className="bg-gray-800/50 rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-700/30">
-            <h4 className="text-2xl font-bold text-white mb-6">Custom AI Automation</h4>
+            <h4 className="text-2xl font-bold text-white mb-6">Custom AI Automation
+
+
+
+If you’re looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.
+
+
+
+
+
+
+          </h4>
             <p className="text-gray-300 mb-8 leading-relaxed">
               For businesses that need a done-for-you solution. I'll design and build bespoke AI-powered automations to streamline your operations, save you 10+ hours a week, and help you scale.
             </p>
@@ -88,6 +97,5 @@ export const ServicesSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
