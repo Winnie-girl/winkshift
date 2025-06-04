@@ -1,26 +1,23 @@
-
 import { useState } from "react";
 import { ArrowRight, ExternalLink, Check } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
 export const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { ref, isVisible } = useScrollAnimation();
-
+  const {
+    ref,
+    isVisible
+  } = useScrollAnimation();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Footer newsletter signup:", email);
     setIsSubmitted(true);
     setEmail("");
-    
     setTimeout(() => {
       setIsSubmitted(false);
     }, 3000);
   };
-
-  return (
-    <footer ref={ref} className="bg-gray-900/80 pt-20 pb-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
+  return <footer ref={ref} className="bg-gray-900/80 pt-20 pb-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
@@ -29,7 +26,7 @@ export const Footer = () => {
               <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <span className="text-white font-bold text-lg">▶</span>
               </div>
-              <span className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">Winkblink</span>
+              <span className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">Winkshift</span>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Making AI automation accessible to everyone, no matter your technical background.
@@ -95,31 +92,17 @@ export const Footer = () => {
               Get in touch to explore how AI can transform your workflow.
             </p>
             
-            {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-3 mb-4">
-                <input 
-                  type="email" 
-                  value={email} 
-                  onChange={e => setEmail(e.target.value)} 
-                  placeholder="Your email address" 
-                  className="w-full px-4 py-3 border border-gray-600 bg-gray-800/50 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm placeholder-gray-400 transition-all duration-300 hover:border-gray-500 focus:scale-105" 
-                  required 
-                />
-                <button 
-                  type="submit" 
-                  className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25"
-                >
+            {!isSubmitted ? <form onSubmit={handleSubmit} className="space-y-3 mb-4">
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email address" className="w-full px-4 py-3 border border-gray-600 bg-gray-800/50 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm placeholder-gray-400 transition-all duration-300 hover:border-gray-500 focus:scale-105" required />
+                <button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25">
                   Subscribe
                 </button>
-              </form>
-            ) : (
-              <div className="flex items-center gap-2 py-3 mb-4 animate-scale-in">
+              </form> : <div className="flex items-center gap-2 py-3 mb-4 animate-scale-in">
                 <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
                   <Check className="w-4 h-4 text-white" />
                 </div>
                 <span className="text-green-400 font-semibold">Subscribed!</span>
-              </div>
-            )}
+              </div>}
             
             <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center group text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25">
               Work With Me
@@ -135,6 +118,5 @@ export const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
