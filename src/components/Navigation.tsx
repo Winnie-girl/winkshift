@@ -1,8 +1,13 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -10,7 +15,12 @@ export const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({
@@ -19,12 +29,16 @@ export const Navigation = () => {
     }
     setIsMenuOpen(false);
   };
-  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-md border-b border-gray-700/30 shadow-lg' : 'bg-gray-900/80 backdrop-blur-md border-b border-gray-700/20'}`}>
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-md border-b border-gray-700/30 shadow-lg' : 'bg-gray-900/80 backdrop-blur-md border-b border-gray-700/20'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <span className="text-2xl font-bold text-white hover:text-cyan-400 transition-colors duration-300 cursor-pointer">Winkshift</span>
+            <Link to="/" className="text-2xl font-bold text-white hover:text-cyan-400 transition-colors duration-300 cursor-pointer">
+              Winkshift
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -42,6 +56,10 @@ export const Navigation = () => {
                 Services
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </button>
+              <Link to="/prompts" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
+                Prompts
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
               <button onClick={() => scrollToSection('contact')} className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
                 Contact
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -89,7 +107,7 @@ export const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-800 rounded-lg mt-2 shadow-lg">
             <button onClick={() => scrollToSection('hero')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Home
@@ -100,11 +118,15 @@ export const Navigation = () => {
             <button onClick={() => scrollToSection('services')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Services
             </button>
+            <Link to="/prompts" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
+              Prompts
+            </Link>
             <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Contact
             </button>
           </div>
         </div>
       </div>
-    </nav>;
+    </nav>
+  );
 };
