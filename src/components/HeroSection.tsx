@@ -1,11 +1,12 @@
+
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
 export const HeroSection = () => {
-  const {
-    ref,
-    isVisible
-  } = useScrollAnimation();
-  return <section id="hero" className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+  const { ref, isVisible } = useScrollAnimation();
+
+  return (
+    <section id="hero" className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Left Column - Text Content */}
@@ -23,7 +24,9 @@ export const HeroSection = () => {
                 <span className={`inline-block transition-all duration-1000 delay-500 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
                   founder of<br />
                 </span>
-                <span className={`inline-block transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}> Winkshift</span>
+                <span className={`inline-block transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
+                  Winkshift
+                </span>
               </h1>
               
               <p className={`text-xl text-white leading-relaxed max-w-lg transition-all duration-1000 delay-900 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
@@ -59,5 +62,6 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };

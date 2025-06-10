@@ -1,11 +1,12 @@
+
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
 export const AboutSection = () => {
-  const {
-    ref,
-    isVisible
-  } = useScrollAnimation();
-  return <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
+  const { ref, isVisible } = useScrollAnimation();
+
+  return (
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6 hover:scale-105 transition-transform duration-300">
@@ -36,28 +37,22 @@ export const AboutSection = () => {
                 I help professionals eliminate backend busywork by designing custom AI workflows that run quietly in the background. From qualifying leads to generating proposals and automating onboarding, I build systems that free you up to focus on what you do best.
               </p>
               
-              <p className={`text-lg transition-all duration-700 delay-900 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>My mission is to make AI simple, practical, and accessible  so entrepreneurs and small businesses can use it to run smarter, not harder, no tech expertise required.</p>
+              <p className={`text-lg transition-all duration-700 delay-900 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                My mission is to make AI simple, practical, and accessible — so entrepreneurs and small businesses can use it to run smarter, not harder, no tech expertise required.
+              </p>
             </div>
 
             <div className={`flex flex-wrap gap-3 transition-all duration-700 delay-1100 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <span className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{
-              animationDelay: '1.3s'
-            }}>
+              <span className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: '1.3s'}}>
                 AI Education
               </span>
-              <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{
-              animationDelay: '1.4s'
-            }}>
+              <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: '1.4s'}}>
                 Generative AI
               </span>
-              <span className="bg-pink-100 text-pink-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{
-              animationDelay: '1.5s'
-            }}>
+              <span className="bg-pink-100 text-pink-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: '1.5s'}}>
                 Prompt Engineering
               </span>
-              <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{
-              animationDelay: '1.6s'
-            }}>
+              <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: '1.6s'}}>
                 Workflow Automation
               </span>
             </div>
@@ -71,5 +66,6 @@ export const AboutSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
