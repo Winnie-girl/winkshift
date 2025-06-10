@@ -14,8 +14,10 @@ export const PromptLibrary = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPrompt, setSelectedPrompt] = useState(null);
 
-  const { data: prompts = [], isLoading: promptsLoading } = usePrompts();
-  const { data: categories = [], isLoading: categoriesLoading } = useCategories();
+  const { data: prompts = [], isLoading: promptsLoading, error: promptsError } = usePrompts();
+  const { data: categories = [], isLoading: categoriesLoading, error: categoriesError } = useCategories();
+
+  console.log('PromptLibrary rendered', { prompts, categories, promptsLoading, categoriesLoading });
 
   // Create category list with "All" option
   const categoryOptions = ["All", ...categories.map(cat => cat.name)];
@@ -38,6 +40,19 @@ export const PromptLibrary = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
           <div className="text-white text-xl">Loading prompts...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (promptsError || categoriesError) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center">
+          <div className="text-red-400 text-xl">Error loading prompts. Please try again.</div>
+          <div className="text-gray-400 mt-2">
+            {promptsError?.message || categoriesError?.message}
+          </div>
         </div>
       </div>
     );
