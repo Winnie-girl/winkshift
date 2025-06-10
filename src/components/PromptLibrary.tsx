@@ -1,143 +1,224 @@
 
-import { useState } from "react";
-import { Search, Filter, Plus } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Copy, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PromptCard } from "./PromptCard";
-import { SearchBar } from "./SearchBar";
-import { CategoryFilter } from "./CategoryFilter";
-import { PromptModal } from "./PromptModal";
+import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
-// Mock data for now - will be replaced with Supabase data
-const mockPrompts = [
-  {
-    id: 1,
-    title: "Blog Post Writer",
-    description: "Generate engaging blog posts on any topic with proper structure and SEO optimization.",
-    content: "Write a comprehensive blog post about [TOPIC]. Include an engaging introduction, 3-5 main sections with subheadings, and a compelling conclusion. Optimize for SEO with relevant keywords.",
-    category: "Content Creation",
-    tags: ["blog", "seo", "writing"],
-    author: "Winkshift Team",
-    isPublic: true,
-    createdAt: "2024-01-15"
-  },
-  {
-    id: 2,
-    title: "Social Media Caption",
-    description: "Create compelling social media captions that drive engagement.",
-    content: "Create an engaging social media caption for [PLATFORM] about [TOPIC]. Include relevant hashtags, a call-to-action, and maintain the appropriate tone for the platform.",
-    category: "Social Media",
-    tags: ["social", "engagement", "captions"],
-    author: "Winkshift Team",
-    isPublic: true,
-    createdAt: "2024-01-14"
-  },
-  {
-    id: 3,
-    title: "Email Marketing Template",
-    description: "Professional email templates for marketing campaigns.",
-    content: "Write a professional marketing email for [PRODUCT/SERVICE]. Include a compelling subject line, personalized greeting, clear value proposition, and strong call-to-action.",
-    category: "Marketing",
-    tags: ["email", "marketing", "conversion"],
-    author: "Winkshift Team",
-    isPublic: true,
-    createdAt: "2024-01-13"
-  }
-];
-
-const categories = ["All", "Content Creation", "Social Media", "Marketing", "Business", "Creative"];
+interface Prompt {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  category: string;
+  tags: string[];
+  author: string;
+  is_public: boolean;
+  created_at: string;
+}
 
 export const PromptLibrary = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPrompt, setSelectedPrompt] = useState(null);
+  const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredPrompts = mockPrompts.filter(prompt => {
-    const matchesSearch = prompt.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         prompt.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         prompt.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === "All" || prompt.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  useEffect(() => {
+    fetchPrompts();
+  }, []);
 
-  const handlePromptClick = (prompt: any) => {
-    setSelectedPrompt(prompt);
-    setIsModalOpen(true);
+  const fetchPrompts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('prompts')
+        .select('*')
+        .eq('is_public', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setPrompts(data || []);
+    } catch (error) {
+      console.error('Error fetching prompts:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load prompts. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-          Prompt
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 ml-4">
-            Library
-          </span>
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          Discover and use our curated collection of AI prompts to enhance your productivity and creativity.
-        </p>
+  const handleCopy = (content: string, title: string) => {
+    navigator.clipboard.writeText(content);
+    toast({
+      title: "Copied!",
+      description: `"${title}" has been copied to your clipboard.`,
+    });
+  };
+
+  const filteredPrompts = prompts.filter(prompt => 
+    prompt.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    prompt.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    prompt.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  // Group prompts for different sections
+  const latestPrompts = filteredPrompts.slice(0, 2);
+  const popularPrompts = filteredPrompts.filter(p => p.category === 'Marketing').slice(0, 2);
+  const featuredPrompts = filteredPrompts.slice(0, 4);
+
+  const PromptCard = ({ prompt, variant = "default" }: { prompt: Prompt; variant?: "default" | "compact" }) => (
+    <Card className="bg-white border border-gray-200 hover:shadow-md transition-all duration-200 group">
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex gap-2">
+            <span className={`px-2 py-1 rounded text-xs font-medium ${
+              prompt.category === 'Marketing' ? 'bg-blue-100 text-blue-700' :
+              prompt.category === 'Sales' ? 'bg-purple-100 text-purple-700' :
+              'bg-gray-100 text-gray-700'
+            }`}>
+              {prompt.category.toLowerCase()}
+            </span>
+            <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+              {prompt.category === 'Marketing' ? 'popular' : 'new'}
+            </span>
+          </div>
+        </div>
+
+        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+          {prompt.title}
+        </h3>
         
-        <Button 
-          onClick={() => setIsModalOpen(true)}
-          className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          <Plus className="w-5 h-5 mr-2" />
-          Add New Prompt
-        </Button>
-      </div>
-
-      {/* Search and Filters */}
-      <div className="flex flex-col lg:flex-row gap-6 mb-8">
-        <div className="flex-1">
-          <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-        </div>
-        <div className="lg:w-64">
-          <CategoryFilter 
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-          />
-        </div>
-      </div>
-
-      {/* Results Count */}
-      <div className="mb-6">
-        <p className="text-gray-400">
-          Showing {filteredPrompts.length} of {mockPrompts.length} prompts
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {prompt.description}
         </p>
-      </div>
 
-      {/* Prompt Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {filteredPrompts.map((prompt) => (
-          <PromptCard 
-            key={prompt.id} 
-            prompt={prompt} 
-            onClick={() => handlePromptClick(prompt)}
-          />
-        ))}
-      </div>
-
-      {/* Empty State */}
-      {filteredPrompts.length === 0 && (
-        <div className="text-center py-12">
-          <Filter className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-400 mb-2">No prompts found</h3>
-          <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+        <div className="flex items-center justify-between">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => handleCopy(prompt.content, prompt.title)}
+            className="text-gray-500 hover:text-gray-700 p-2"
+          >
+            <Copy className="w-4 h-4 mr-1" />
+            Copy
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-gray-500 hover:text-gray-700 p-2"
+          >
+            <Eye className="w-4 h-4 mr-1" />
+            View
+          </Button>
         </div>
-      )}
+      </CardContent>
+    </Card>
+  );
 
-      {/* Prompt Modal */}
-      <PromptModal 
-        prompt={selectedPrompt}
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setSelectedPrompt(null);
-        }}
-      />
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading prompts...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Prompt Library
+          </h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+            Discover a collection of expertly crafted prompts to supercharge your AI interactions. 
+            Find the perfect prompt for your needs or get inspired to create your own.
+          </p>
+          
+          {/* Search Bar */}
+          <div className="max-w-md mx-auto relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="marketing strategy"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+            />
+          </div>
+        </div>
+
+        {/* Latest Additions & Most Used Prompts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {/* Latest Additions */}
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">New</span>
+              <h2 className="text-2xl font-bold text-gray-900">Latest Additions</h2>
+            </div>
+            <div className="space-y-4">
+              {latestPrompts.map((prompt) => (
+                <PromptCard key={prompt.id} prompt={prompt} />
+              ))}
+            </div>
+          </div>
+
+          {/* Most Used Prompts */}
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">Popular</span>
+              <h2 className="text-2xl font-bold text-gray-900">Most Used Prompts</h2>
+            </div>
+            <div className="space-y-4">
+              {popularPrompts.map((prompt) => (
+                <PromptCard key={prompt.id} prompt={prompt} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Featured Prompts */}
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-medium">Featured</span>
+            <h2 className="text-2xl font-bold text-gray-900">Featured Prompts</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredPrompts.map((prompt) => (
+              <PromptCard key={prompt.id} prompt={prompt} variant="compact" />
+            ))}
+          </div>
+        </div>
+
+        {/* Email Signup Section */}
+        <div className="bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-200">
+          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl">🔓</span>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">
+            Unlock All {prompts.length} Expert-Crafted Prompts
+          </h3>
+          <p className="text-gray-600 mb-6">
+            Enter your email below to get instant access to our entire library of prompts.
+          </p>
+          <div className="max-w-md mx-auto flex gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium">
+              Get Access
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
