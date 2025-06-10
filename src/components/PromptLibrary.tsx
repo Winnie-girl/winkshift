@@ -6,45 +6,7 @@ import { PromptCard } from "./PromptCard";
 import { SearchBar } from "./SearchBar";
 import { CategoryFilter } from "./CategoryFilter";
 import { PromptModal } from "./PromptModal";
-
-// Mock data for now - will be replaced with Supabase data
-const mockPrompts = [
-  {
-    id: 1,
-    title: "Blog Post Writer",
-    description: "Generate engaging blog posts on any topic with proper structure and SEO optimization.",
-    content: "Write a comprehensive blog post about [TOPIC]. Include an engaging introduction, 3-5 main sections with subheadings, and a compelling conclusion. Optimize for SEO with relevant keywords.",
-    category: "Content Creation",
-    tags: ["blog", "seo", "writing"],
-    author: "Winkshift Team",
-    isPublic: true,
-    createdAt: "2024-01-15"
-  },
-  {
-    id: 2,
-    title: "Social Media Caption",
-    description: "Create compelling social media captions that drive engagement.",
-    content: "Create an engaging social media caption for [PLATFORM] about [TOPIC]. Include relevant hashtags, a call-to-action, and maintain the appropriate tone for the platform.",
-    category: "Social Media",
-    tags: ["social", "engagement", "captions"],
-    author: "Winkshift Team",
-    isPublic: true,
-    createdAt: "2024-01-14"
-  },
-  {
-    id: 3,
-    title: "Email Marketing Template",
-    description: "Professional email templates for marketing campaigns.",
-    content: "Write a professional marketing email for [PRODUCT/SERVICE]. Include a compelling subject line, personalized greeting, clear value proposition, and strong call-to-action.",
-    category: "Marketing",
-    tags: ["email", "marketing", "conversion"],
-    author: "Winkshift Team",
-    isPublic: true,
-    createdAt: "2024-01-13"
-  }
-];
-
-const categories = ["All", "Content Creation", "Social Media", "Marketing", "Business", "Creative"];
+import { usePrompts, useCategories } from "@/hooks/usePrompts";
 
 export const PromptLibrary = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,11 +14,17 @@ export const PromptLibrary = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPrompt, setSelectedPrompt] = useState(null);
 
-  const filteredPrompts = mockPrompts.filter(prompt => {
+  const { data: prompts = [], isLoading: promptsLoading } = usePrompts();
+  const { data: categories = [], isLoading: categoriesLoading } = useCategories();
+
+  // Create category list with "All" option
+  const categoryOptions = ["All", ...categories.map(cat => cat.name)];
+
+  const filteredPrompts = prompts.filter(prompt => {
     const matchesSearch = prompt.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          prompt.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          prompt.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === "All" || prompt.category === selectedCategory;
+    const matchesCategory = selectedCategory === "All" || prompt.category?.name === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -64,6 +32,16 @@ export const PromptLibrary = () => {
     setSelectedPrompt(prompt);
     setIsModalOpen(true);
   };
+
+  if (promptsLoading || categoriesLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center">
+          <div className="text-white text-xl">Loading prompts...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -95,7 +73,7 @@ export const PromptLibrary = () => {
         </div>
         <div className="lg:w-64">
           <CategoryFilter 
-            categories={categories}
+            categories={categoryOptions}
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
           />
@@ -105,7 +83,7 @@ export const PromptLibrary = () => {
       {/* Results Count */}
       <div className="mb-6">
         <p className="text-gray-400">
-          Showing {filteredPrompts.length} of {mockPrompts.length} prompts
+          Showing {filteredPrompts.length} of {prompts.length} prompts
         </p>
       </div>
 
@@ -114,7 +92,11 @@ export const PromptLibrary = () => {
         {filteredPrompts.map((prompt) => (
           <PromptCard 
             key={prompt.id} 
-            prompt={prompt} 
+            prompt={{
+              ...prompt,
+              category: prompt.category?.name || 'Uncategorized',
+              createdAt: prompt.created_at
+            }}
             onClick={() => handlePromptClick(prompt)}
           />
         ))}
@@ -131,7 +113,10 @@ export const PromptLibrary = () => {
 
       {/* Prompt Modal */}
       <PromptModal 
-        prompt={selectedPrompt}
+        prompt={selectedPrompt ? {
+          ...selectedPrompt,
+          category: selectedPrompt.category?.name || 'Uncategorized'
+        } : null}
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
