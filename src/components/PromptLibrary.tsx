@@ -63,59 +63,90 @@ export const PromptLibrary = () => {
     prompt.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  // Group prompts for different sections
-  const latestPrompts = filteredPrompts.slice(0, 2);
-  const popularPrompts = filteredPrompts.filter(p => p.category === 'Marketing').slice(0, 2);
-  const featuredPrompts = filteredPrompts.slice(0, 4);
+  // Group prompts by their actual categories
+  const latestPrompts = filteredPrompts.filter(p => p.category === 'Latest Additions');
+  const mostUsedPrompts = filteredPrompts.filter(p => p.category === 'Most Used Prompts');
+  const featuredPrompts = filteredPrompts.filter(p => p.category === 'Featured Prompts');
 
-  const PromptCard = ({ prompt, variant = "default" }: { prompt: Prompt; variant?: "default" | "compact" }) => (
-    <Card className="bg-white border border-gray-200 hover:shadow-md transition-all duration-200 group">
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex gap-2">
-            <span className={`px-2 py-1 rounded text-xs font-medium ${
-              prompt.category === 'Marketing' ? 'bg-blue-100 text-blue-700' :
-              prompt.category === 'Sales' ? 'bg-purple-100 text-purple-700' :
-              'bg-gray-100 text-gray-700'
-            }`}>
-              {prompt.category.toLowerCase()}
-            </span>
-            <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
-              {prompt.category === 'Marketing' ? 'popular' : 'new'}
-            </span>
+  const getCategoryBadgeColor = (category: string) => {
+    switch (category) {
+      case 'Marketing':
+        return 'bg-blue-100 text-blue-700';
+      case 'Sales':
+        return 'bg-purple-100 text-purple-700';
+      case 'Featured Prompts':
+        return 'bg-yellow-100 text-yellow-700';
+      case 'Most Used Prompts':
+        return 'bg-green-100 text-green-700';
+      case 'Latest Additions':
+        return 'bg-cyan-100 text-cyan-700';
+      default:
+        return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  const getStatusBadge = (category: string) => {
+    switch (category) {
+      case 'Marketing':
+      case 'Most Used Prompts':
+        return { text: 'popular', color: 'bg-green-100 text-green-700' };
+      case 'Latest Additions':
+        return { text: 'new', color: 'bg-blue-100 text-blue-700' };
+      case 'Featured Prompts':
+        return { text: 'featured', color: 'bg-purple-100 text-purple-700' };
+      default:
+        return { text: 'new', color: 'bg-blue-100 text-blue-700' };
+    }
+  };
+
+  const PromptCard = ({ prompt, variant = "default" }: { prompt: Prompt; variant?: "default" | "compact" }) => {
+    const statusBadge = getStatusBadge(prompt.category);
+    
+    return (
+      <Card className="bg-white border border-gray-200 hover:shadow-md transition-all duration-200 group">
+        <CardContent className="p-6">
+          <div className="flex items-start justify-between mb-3">
+            <div className="flex gap-2">
+              <span className={`px-2 py-1 rounded text-xs font-medium ${getCategoryBadgeColor(prompt.category)}`}>
+                {prompt.category.toLowerCase()}
+              </span>
+              <span className={`px-2 py-1 rounded text-xs font-medium ${statusBadge.color}`}>
+                {statusBadge.text}
+              </span>
+            </div>
           </div>
-        </div>
 
-        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-          {prompt.title}
-        </h3>
-        
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-          {prompt.description}
-        </p>
+          <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+            {prompt.title}
+          </h3>
+          
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+            {prompt.description}
+          </p>
 
-        <div className="flex items-center justify-between">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleCopy(prompt.content, prompt.title)}
-            className="text-gray-500 hover:text-gray-700 p-2"
-          >
-            <Copy className="w-4 h-4 mr-1" />
-            Copy
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-gray-500 hover:text-gray-700 p-2"
-          >
-            <Eye className="w-4 h-4 mr-1" />
-            View
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
+          <div className="flex items-center justify-between">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleCopy(prompt.content, prompt.title)}
+              className="text-gray-500 hover:text-gray-700 p-2"
+            >
+              <Copy className="w-4 h-4 mr-1" />
+              Copy
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700 p-2"
+            >
+              <Eye className="w-4 h-4 mr-1" />
+              View
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
 
   if (loading) {
     return (
@@ -163,9 +194,13 @@ export const PromptLibrary = () => {
               <h2 className="text-2xl font-bold text-gray-900">Latest Additions</h2>
             </div>
             <div className="space-y-4">
-              {latestPrompts.map((prompt) => (
-                <PromptCard key={prompt.id} prompt={prompt} />
-              ))}
+              {latestPrompts.length > 0 ? (
+                latestPrompts.map((prompt) => (
+                  <PromptCard key={prompt.id} prompt={prompt} />
+                ))
+              ) : (
+                <p className="text-gray-500 text-center py-8">No latest additions found</p>
+              )}
             </div>
           </div>
 
@@ -176,25 +211,31 @@ export const PromptLibrary = () => {
               <h2 className="text-2xl font-bold text-gray-900">Most Used Prompts</h2>
             </div>
             <div className="space-y-4">
-              {popularPrompts.map((prompt) => (
-                <PromptCard key={prompt.id} prompt={prompt} />
-              ))}
+              {mostUsedPrompts.length > 0 ? (
+                mostUsedPrompts.map((prompt) => (
+                  <PromptCard key={prompt.id} prompt={prompt} />
+                ))
+              ) : (
+                <p className="text-gray-500 text-center py-8">No most used prompts found</p>
+              )}
             </div>
           </div>
         </div>
 
         {/* Featured Prompts */}
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-6">
-            <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-medium">Featured</span>
-            <h2 className="text-2xl font-bold text-gray-900">Featured Prompts</h2>
+        {featuredPrompts.length > 0 && (
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-6">
+              <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-medium">Featured</span>
+              <h2 className="text-2xl font-bold text-gray-900">Featured Prompts</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredPrompts.map((prompt) => (
+                <PromptCard key={prompt.id} prompt={prompt} variant="compact" />
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredPrompts.map((prompt) => (
-              <PromptCard key={prompt.id} prompt={prompt} variant="compact" />
-            ))}
-          </div>
-        </div>
+        )}
 
         {/* Email Signup Section */}
         <div className="bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-200">
