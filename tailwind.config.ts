@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,11 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'roboto': ['Roboto', 'sans-serif'],
+				'open-sans': ['Open Sans', 'sans-serif'],
+				'sans': ['Open Sans', 'Roboto', 'sans-serif'], // Set Open Sans as default sans font
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
