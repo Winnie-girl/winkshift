@@ -48,6 +48,45 @@ export type Database = {
         }
         Relationships: []
       }
+      tools: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          icon_url: string | null
+          id: string
+          is_featured: boolean | null
+          name: string
+          tags: string[] | null
+          updated_at: string
+          website_url: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          icon_url?: string | null
+          id?: string
+          is_featured?: boolean | null
+          name: string
+          tags?: string[] | null
+          updated_at?: string
+          website_url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          icon_url?: string | null
+          id?: string
+          is_featured?: boolean | null
+          name?: string
+          tags?: string[] | null
+          updated_at?: string
+          website_url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
