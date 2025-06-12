@@ -62,7 +62,7 @@ export const AboutSection = () => {
             </div>
 
             <div className={`pt-4 transition-all duration-700 delay-1300 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <button className="bg-gradient-coral-glow hover:shadow-warm-orange-500/25 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center group animate-glow">
+              <button className="bg-gradient-coral-glow hover:shadow-warm-orange-500/25 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center group">
                 Work With Me
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
