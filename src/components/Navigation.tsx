@@ -60,6 +60,10 @@ export const Navigation = () => {
                 Prompts
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
+              <Link to="/tools" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
+                Tools
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
               <button onClick={() => scrollToSection('contact')} className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
                 Contact
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -120,6 +124,9 @@ export const Navigation = () => {
             </button>
             <Link to="/prompts" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Prompts
+            </Link>
+            <Link to="/tools" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
+              Tools
             </Link>
             <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Contact
