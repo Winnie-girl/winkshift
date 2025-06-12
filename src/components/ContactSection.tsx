@@ -25,7 +25,7 @@ export const ContactSection = () => {
               Let's work together to implement AI solutions that save you time, improve quality, and drive results.
             </p>
             
-            <button className={`bg-gradient-coral-glow hover:shadow-warm-orange-500/25 text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center mx-auto group animate-glow ${isVisible ? 'animate-fade-in-up' : 'opacity-0'} delay-700`}>
+            <button className={`bg-gradient-coral-glow hover:shadow-warm-orange-500/25 text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center mx-auto group ${isVisible ? 'animate-fade-in-up' : 'opacity-0'} delay-700`}>
               Get Started Today
               <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
             </button>
