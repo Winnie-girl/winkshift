@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -47,6 +48,46 @@ export const Navigation = () => {
                 Home
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </button>
+              
+              {/* Free Resources Dropdown */}
+              <div className="relative"
+                onMouseEnter={() => setIsResourcesOpen(true)}
+                onMouseLeave={() => setIsResourcesOpen(false)}
+              >
+                <button className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center">
+                  Free Resources
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                </button>
+                
+                {/* Dropdown Menu */}
+                <div className={`absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 transition-all duration-200 ${isResourcesOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                  <div className="py-1">
+                    <Link 
+                      to="/prompts" 
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                      onClick={() => setIsResourcesOpen(false)}
+                    >
+                      Prompt Library
+                    </Link>
+                    <Link 
+                      to="/tools" 
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                      onClick={() => setIsResourcesOpen(false)}
+                    >
+                      AI Tool Directory
+                    </Link>
+                    <a 
+                      href="#" 
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                      onClick={() => setIsResourcesOpen(false)}
+                    >
+                      AI Blueprints
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <button onClick={() => scrollToSection('about')} className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
                 About
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -55,14 +96,6 @@ export const Navigation = () => {
                 Services
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </button>
-              <Link to="/prompts" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
-                Prompts
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </Link>
-              <Link to="/tools" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
-                Tools
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </Link>
               <Link to="/tools/manage" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group">
                 Manage Tools
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -119,18 +152,21 @@ export const Navigation = () => {
             <button onClick={() => scrollToSection('hero')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Home
             </button>
+            <Link to="/prompts" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
+              Prompt Library
+            </Link>
+            <Link to="/tools" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
+              AI Tool Directory
+            </Link>
+            <a href="#" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
+              AI Blueprints
+            </a>
             <button onClick={() => scrollToSection('about')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               About
             </button>
             <button onClick={() => scrollToSection('services')} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Services
             </button>
-            <Link to="/prompts" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
-              Prompts
-            </Link>
-            <Link to="/tools" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
-              Tools
-            </Link>
             <Link to="/tools/manage" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white text-base font-medium transition-all duration-300 hover:bg-gray-700 rounded-lg hover:scale-105">
               Manage Tools
             </Link>
