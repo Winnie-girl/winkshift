@@ -9,6 +9,45 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      blueprints: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string
+          download_count: number | null
+          file_size_kb: number | null
+          id: string
+          is_featured: boolean | null
+          json_file_path: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description: string
+          download_count?: number | null
+          file_size_kb?: number | null
+          id?: string
+          is_featured?: boolean | null
+          json_file_path: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string
+          download_count?: number | null
+          file_size_kb?: number | null
+          id?: string
+          is_featured?: boolean | null
+          json_file_path?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       email_subscribers: {
         Row: {
           created_at: string

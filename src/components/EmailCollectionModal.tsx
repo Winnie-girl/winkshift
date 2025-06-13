@@ -23,6 +23,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { BlueprintsList } from "@/components/BlueprintsList";
 
 const emailSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -97,19 +98,30 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
   if (isSuccess) {
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-md bg-slate-800 border-slate-700">
-          <div className="text-center py-6">
-            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+        <DialogContent className="sm:max-w-2xl bg-slate-800 border-slate-700 max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogHeader className="flex-shrink-0">
+            <div className="text-center mb-4">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <DialogTitle className="text-xl font-bold text-white mb-2">
+                Welcome to the Blueprint Library!
+              </DialogTitle>
+              <p className="text-gray-300 text-sm">
+                Your access has been confirmed. Download any of these automation blueprints below.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">You're All Set!</h3>
-            <p className="text-gray-300 mb-6">
-              Check your email for access to our complete blueprint library including "Automatic Email from Transcript" and many more!
-            </p>
-            <Button onClick={handleClose} className="bg-blue-600 hover:bg-blue-500">
-              Continue
+          </DialogHeader>
+          
+          <div className="flex-1 overflow-hidden">
+            <BlueprintsList />
+          </div>
+          
+          <div className="flex-shrink-0 pt-4 border-t border-slate-600/50">
+            <Button onClick={handleClose} className="w-full bg-blue-600 hover:bg-blue-500">
+              Continue Browsing
             </Button>
           </div>
         </DialogContent>
