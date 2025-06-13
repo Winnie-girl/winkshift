@@ -127,18 +127,9 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
         </DialogHeader>
         
         <div className="text-center mb-6">
-          <p className="text-gray-300 mb-4">
-            Get instant access to <strong className="text-blue-300">"Automatic Email from Transcript"</strong> plus our entire library of AI automation blueprints.
+          <p className="text-gray-300">
+            Get instant access to Library of AI automation blueprints.
           </p>
-          <div className="bg-slate-700/50 rounded-lg p-4 mb-4">
-            <h4 className="text-white font-semibold mb-2">What you'll get:</h4>
-            <ul className="text-gray-300 text-sm space-y-1">
-              <li>• Step-by-step video tutorials</li>
-              <li>• Downloadable automation templates</li>
-              <li>• Access to our complete blueprint library</li>
-              <li>• Future blueprint updates</li>
-            </ul>
-          </div>
         </div>
 
         <Form {...form}>
