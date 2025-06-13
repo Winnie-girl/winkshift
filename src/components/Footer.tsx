@@ -1,13 +1,13 @@
+
 import { useState } from "react";
 import { ArrowRight, ExternalLink, Check } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
 export const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const {
-    ref,
-    isVisible
-  } = useScrollAnimation();
+  const { ref, isVisible } = useScrollAnimation();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Footer newsletter signup:", email);
@@ -17,7 +17,9 @@ export const Footer = () => {
       setIsSubmitted(false);
     }, 3000);
   };
-  return <footer ref={ref} className="bg-gray-900/80 pt-20 pb-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
+
+  return (
+    <footer ref={ref} className="bg-gray-900/80 pt-20 pb-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
@@ -92,19 +94,33 @@ export const Footer = () => {
               Get in touch to explore how AI can transform your workflow.
             </p>
             
-            {!isSubmitted ? <form onSubmit={handleSubmit} className="space-y-3 mb-4">
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email address" className="w-full px-4 py-3 border border-gray-600 bg-gray-800/50 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm placeholder-gray-400 transition-all duration-300 hover:border-gray-500 focus:scale-105" required />
-                <button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25">
+            {!isSubmitted ? (
+              <form onSubmit={handleSubmit} className="space-y-3 mb-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address"
+                  className="w-full px-4 py-3 border border-gray-600 bg-gray-800/50 text-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm placeholder-gray-400 transition-all duration-300 hover:border-gray-500 focus:scale-105"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-orange-500 hover:bg-orange-400 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25"
+                >
                   Subscribe
                 </button>
-              </form> : <div className="flex items-center gap-2 py-3 mb-4 animate-scale-in">
+              </form>
+            ) : (
+              <div className="flex items-center gap-2 py-3 mb-4 animate-scale-in">
                 <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
                   <Check className="w-4 h-4 text-white" />
                 </div>
                 <span className="text-green-400 font-semibold">Subscribed!</span>
-              </div>}
+              </div>
+            )}
             
-            <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center group text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25">
+            <button className="w-full bg-orange-500 hover:bg-orange-400 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center group text-sm hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25">
               Work With Me
               <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -118,5 +134,6 @@ export const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
