@@ -1,11 +1,17 @@
-
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { EmailCollectionModal } from "@/components/EmailCollectionModal";
+import { useState } from "react";
 
 export const ServicesSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation();
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+
+  const handleBlueprintsClick = () => {
+    setIsEmailModalOpen(true);
+  };
 
   return (
     <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/95">
@@ -31,7 +37,10 @@ export const ServicesSection = () => {
             <p className="text-gray-300 mb-6 leading-relaxed">
               Get step-by-step video tutorials and downloadable templates to build powerful automations for your business.
             </p>
-            <button className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25">
+            <button 
+              onClick={handleBlueprintsClick}
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25"
+            >
               Browse Blueprints
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -92,6 +101,11 @@ export const ServicesSection = () => {
           </div>
         </div>
       </div>
+
+      <EmailCollectionModal
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+      />
     </section>
   );
 };
