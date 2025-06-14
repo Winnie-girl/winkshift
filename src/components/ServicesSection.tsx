@@ -1,13 +1,17 @@
+
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { EmailCollectionModal } from "@/components/EmailCollectionModal";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Added import
 
 export const ServicesSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation();
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleBlueprintsClick = () => {
     setIsEmailModalOpen(true);
@@ -52,7 +56,10 @@ export const ServicesSection = () => {
             <p className="text-gray-300 mb-6 leading-relaxed">
               Access my high-quality prompts for tools like ChatGPT.
             </p>
-            <button className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25">
+            <button 
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25"
+              onClick={() => navigate("/prompts")}
+            >
               Explore Prompts
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -64,7 +71,10 @@ export const ServicesSection = () => {
             <p className="text-gray-300 mb-6 leading-relaxed">
               Explore my handpicked selection of top AI tools designed to grow your business and supercharge productivity.
             </p>
-            <button className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25">
+            <button 
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25"
+              onClick={() => navigate("/tools")}
+            >
               See the Directory
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -101,9 +111,10 @@ export const ServicesSection = () => {
           </div>
         </div>
 
+        {/* Steal My Prompts */}
         <div className="flex justify-center mt-16">
           <button
-            onClick={() => window.location.assign("/prompts")}
+            onClick={() => navigate("/prompts")}
             className="flex items-center px-8 py-4 rounded-full font-semibold text-white text-lg shadow-md bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600 hover:from-orange-400 hover:to-orange-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
             style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
             aria-label="Steal My Prompts"
