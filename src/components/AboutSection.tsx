@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -33,7 +32,7 @@ export const AboutSection = () => {
           {/* Right Column - Content */}
           <div className={`order-1 lg:order-2 space-y-8 transition-all duration-1000 delay-500 ${isVisible ? 'animate-slide-in-right' : 'opacity-0'}`}>
             <h2 className="text-4xl lg:text-5xl font-bold text-white">
-              Meet <span className="bg-gradient-coral-glow bg-clip-text text-transparent">Heather Probst</span>
+              Meet <span className="bg-gradient-coral-glow bg-clip-text text-transparent">Heather</span>
             </h2>
             
             <div className="space-y-6 text-white leading-relaxed">
