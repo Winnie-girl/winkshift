@@ -167,7 +167,7 @@ export const PromptLibrary = () => {
             Prompt Library
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-            Access my high-quality prompts for tools like ChatGPT.
+            Access a curated library of high-quality prompts to get better results from tools like ChatGPT.
           </p>
           
           {/* Search Bar */}
