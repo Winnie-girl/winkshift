@@ -22,6 +22,7 @@ export default {
 				'roboto': ['Roboto', 'sans-serif'],
 				'open-sans': ['Open Sans', 'sans-serif'],
 				'sans': ['Open Sans', 'Roboto', 'sans-serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
