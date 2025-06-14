@@ -62,7 +62,7 @@ export const ServicesSection = () => {
           <div className={`bg-slate-800/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-slate-700/40 hover:scale-105 hover:border-blue-400/50 hover:shadow-blue-400/20 group ${cardsVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
             <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors duration-300">AI Tools Directory</h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Discover my personally vetted list of the best AI tools to grow your business and boost productivity.
+              Explore my handpicked selection of top AI tools designed to grow your business and supercharge productivity.
             </p>
             <button className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/25">
               See the Directory
