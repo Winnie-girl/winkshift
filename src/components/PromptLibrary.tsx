@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Search, Copy, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -168,8 +167,7 @@ export const PromptLibrary = () => {
             Prompt Library
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-            Discover a collection of expertly crafted prompts to supercharge your AI interactions. 
-            Find the perfect prompt for your needs or get inspired to create your own.
+            Access my high-quality prompts for tools like ChatGPT.
           </p>
           
           {/* Search Bar */}
