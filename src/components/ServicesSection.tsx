@@ -100,6 +100,21 @@ export const ServicesSection = () => {
             </button>
           </div>
         </div>
+
+        <div className="flex justify-center mt-16">
+          <button
+            onClick={() => window.location.assign("/prompts")}
+            className="flex items-center px-8 py-4 rounded-full font-semibold text-white text-lg shadow-md bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600 hover:from-orange-400 hover:to-orange-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
+            aria-label="Steal My Prompts"
+          >
+            Steal My Prompts
+            <span className="ml-3">
+              <svg width="22" height="22" className="inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </button>
+        </div>
+
       </div>
 
       <EmailCollectionModal
@@ -109,3 +124,5 @@ export const ServicesSection = () => {
     </section>
   );
 };
+
+export default ServicesSection;
