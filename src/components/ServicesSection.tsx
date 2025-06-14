@@ -35,7 +35,7 @@ export const ServicesSection = () => {
           <div className={`bg-slate-800/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-slate-700/40 hover:scale-105 hover:border-blue-400/50 hover:shadow-blue-400/20 group ${cardsVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{animationDelay: '0.1s'}}>
             <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors duration-300">Free AI Blueprints</h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Get step-by-step video tutorials and downloadable templates to build powerful automations for your business.
+              Download powerful automation templates for your business.
             </p>
             <button 
               onClick={handleBlueprintsClick}
