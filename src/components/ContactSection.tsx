@@ -24,14 +24,10 @@ export const ContactSection = () => {
               Let's discuss how AI can revolutionize your business operations and unlock new possibilities for growth.
             </p>
             
-            <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <button className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-400/25 flex items-center group">
+            <div className={`flex flex-col gap-4 justify-center items-center transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+              <button className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-400/25 flex items-center group border-2 border-white focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-2">
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              
-              <button className="border border-slate-600 hover:border-slate-500 text-gray-300 hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-slate-800/50">
-                Schedule a Call
               </button>
             </div>
           </div>
