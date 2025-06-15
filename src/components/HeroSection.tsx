@@ -4,6 +4,13 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 export const HeroSection = () => {
   const { ref, isVisible } = useScrollAnimation();
 
+  const scrollToCustomAIStrategy = () => {
+    const target = document.getElementById('custom-ai-strategy');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="hero" className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -52,6 +59,7 @@ export const HeroSection = () => {
                   border: "2px solid transparent",
                   background: "linear-gradient(#131c32, #131c32) padding-box, linear-gradient(90deg, #f97316, #2563eb) border-box"
                 }}
+                onClick={scrollToCustomAIStrategy}
               >
                 <span className="text-gray-100 font-bold">View My Services</span>
               </button>

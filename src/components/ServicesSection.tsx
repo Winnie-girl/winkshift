@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { EmailCollectionModal } from "@/components/EmailCollectionModal";
@@ -81,7 +80,8 @@ export const ServicesSection = () => {
           </div>
         </div>
 
-        <div ref={ctaRef} className={`text-center mb-12 transition-all duration-1000 ${ctaVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        {/* ADD id to anchor here */}
+        <div id="custom-ai-strategy" ref={ctaRef} className={`text-center mb-12 transition-all duration-1000 ${ctaVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Ready for a <span className="text-orange-400">Custom AI Strategy</span>?
           </h3>
