@@ -20,7 +20,11 @@ const ConsultationModalContext = createContext<ConsultationModalContextType>({
   state: { isOpen: false, serviceType: "", source: "" },
 });
 
-export function ConsultationModalProvider({ children }: { children: React.ReactNode }) {
+export function ConsultationModalProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [state, setState] = useState<ModalState>({
     isOpen: false,
     serviceType: "",
