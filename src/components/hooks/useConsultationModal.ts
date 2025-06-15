@@ -52,3 +52,4 @@ export function ConsultationModalProvider({ children }: { children: React.ReactN
 export function useConsultationModal() {
   return useContext(ConsultationModalContext);
 }
+
