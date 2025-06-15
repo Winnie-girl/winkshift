@@ -30,9 +30,14 @@ export function ConsultationModalProvider({ children }: { children: React.ReactN
 
   const open = useCallback(
     (serviceType: string, source: string, initialEmail?: string) => {
-      setState({ isOpen: true, serviceType, source, initialEmail });
+      setState({
+        isOpen: true,
+        serviceType,
+        source,
+        initialEmail,
+      });
     },
-    [],
+    []
   );
 
   const close = useCallback(() => {
@@ -52,4 +57,3 @@ export function ConsultationModalProvider({ children }: { children: React.ReactN
 export function useConsultationModal() {
   return useContext(ConsultationModalContext);
 }
-
