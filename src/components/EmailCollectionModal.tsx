@@ -71,7 +71,13 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
             description: "This email is already in our system. Check your inbox for access details.",
           });
         } else {
-          throw error;
+          // Show more detailed error:
+          toast({
+            title: "Error",
+            description: error.message || "Something went wrong. Please try again.",
+            variant: "destructive",
+          });
+          console.error("Error submitting email:", error);
         }
       } else {
         setIsSuccess(true);
@@ -80,13 +86,14 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
           description: "You now have access to our blueprint library. Check your email for details.",
         });
       }
-    } catch (error) {
-      console.error("Error submitting email:", error);
+    } catch (error: any) {
+      // Show error stack if available
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error.message || "Something went wrong. Please try again.",
         variant: "destructive",
       });
+      console.error("Error submitting email (catch):", error);
     } finally {
       setIsSubmitting(false);
     }

@@ -54,6 +54,7 @@ export type Database = {
           email: string
           id: string
           is_verified: boolean | null
+          name: string | null
           remember_me: boolean | null
           source: string | null
           subscribed_at: string
@@ -64,6 +65,7 @@ export type Database = {
           email: string
           id?: string
           is_verified?: boolean | null
+          name?: string | null
           remember_me?: boolean | null
           source?: string | null
           subscribed_at?: string
@@ -74,6 +76,7 @@ export type Database = {
           email?: string
           id?: string
           is_verified?: boolean | null
+          name?: string | null
           remember_me?: boolean | null
           source?: string | null
           subscribed_at?: string
