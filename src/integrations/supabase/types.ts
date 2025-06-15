@@ -48,6 +48,66 @@ export type Database = {
         }
         Relationships: []
       }
+      consultation_requests: {
+        Row: {
+          budget_range: string | null
+          company: string | null
+          created_at: string
+          current_challenges: string | null
+          email: string
+          goals: string | null
+          id: string
+          name: string
+          phone: string | null
+          preferred_contact_method: string | null
+          project_description: string | null
+          referral_info: string | null
+          service_type: string
+          source: string | null
+          status: string | null
+          timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          budget_range?: string | null
+          company?: string | null
+          created_at?: string
+          current_challenges?: string | null
+          email: string
+          goals?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          preferred_contact_method?: string | null
+          project_description?: string | null
+          referral_info?: string | null
+          service_type: string
+          source?: string | null
+          status?: string | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          budget_range?: string | null
+          company?: string | null
+          created_at?: string
+          current_challenges?: string | null
+          email?: string
+          goals?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          preferred_contact_method?: string | null
+          project_description?: string | null
+          referral_info?: string | null
+          service_type?: string
+          source?: string | null
+          status?: string | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       email_subscribers: {
         Row: {
           created_at: string

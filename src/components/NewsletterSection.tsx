@@ -1,9 +1,36 @@
-
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useConsultationModal } from "./hooks/useConsultationModal";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 export const NewsletterSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { open } = useConsultationModal();
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  // When newsletter submit is successful, offer option to book consultation
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      if (!email) return;
+      // Add to email_subscribers table with source "newsletter"
+      const { error } = await supabase.from("email_subscribers").insert([{ email, source: "newsletter" }]);
+      if (error) throw error;
+      toast({ title: "Subscribed!", description: "Check your inbox for AI strategies & blueprints." });
+      // Offer to open consultation modal after successful sign-up
+      setTimeout(() => {
+        open("newsletter", "newsletter", email);
+      }, 700);
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message || "Could not subscribe." });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/95">
@@ -25,17 +52,28 @@ export const NewsletterSection = () => {
               Get weekly insights, exclusive AI strategies, and early access to new automation blueprints delivered straight to your inbox.
             </p>
             
-            <div className={`flex flex-col sm:flex-row gap-4 max-w-md mx-auto transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="flex-1 px-6 py-4 rounded-full bg-slate-700/60 border border-slate-600/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent backdrop-blur-sm"
+            <form
+              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto transition-all duration-1000 delay-700"
+              onSubmit={handleNewsletterSubmit}
+            >
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                disabled={submitting}
+                className="flex-1 px-6 py-4 rounded-full bg-slate-700/60 border border-slate-600/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
               />
-              <button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-400/25 flex items-center justify-center group">
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-400/25 flex items-center justify-center group disabled:opacity-70"
+                disabled={submitting}
+              >
                 Subscribe
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
-            </div>
+            </form>
             
             <p className={`text-sm text-gray-400 mt-4 transition-all duration-1000 delay-900 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
               No spam, unsubscribe at any time. Your data is safe with us.

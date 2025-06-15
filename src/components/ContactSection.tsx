@@ -1,9 +1,10 @@
-
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useConsultationModal } from "./hooks/useConsultationModal";
 
 export const ContactSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { open } = useConsultationModal();
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900">
@@ -25,7 +26,10 @@ export const ContactSection = () => {
             </p>
             
             <div className={`flex flex-col gap-4 justify-center items-center transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <button className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-400/25 flex items-center group border-2 border-white focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-2">
+              <button
+                className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-400/25 flex items-center group border-2 border-white focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-2"
+                onClick={() => open("get_started", "get_started")}
+              >
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>

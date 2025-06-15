@@ -3,6 +3,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { EmailCollectionModal } from "@/components/EmailCollectionModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Added import
+import { useConsultationModal } from "./hooks/useConsultationModal";
 
 export const ServicesSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -11,6 +12,7 @@ export const ServicesSection = () => {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const navigate = useNavigate();
+  const { open } = useConsultationModal();
 
   const handleBlueprintsClick = () => {
     setIsEmailModalOpen(true);
@@ -92,7 +94,10 @@ export const ServicesSection = () => {
           <div className={`bg-slate-800/60 backdrop-blur-sm rounded-3xl p-10 shadow-lg hover:shadow-xl transition-all duration-500 border border-slate-700/40 hover:scale-105 hover:border-blue-400/50 hover:shadow-blue-400/20 group ${ctaVisible ? 'animate-slide-in-left' : 'opacity-0'}`} style={{animationDelay: '0.2s'}}>
             <h4 className="text-2xl font-bold text-white mb-6 group-hover:text-blue-300 transition-colors duration-300">Custom AI Automation</h4>
             <p className="text-gray-300 mb-8 leading-relaxed">If you're looking for a hands-off solution, I design tailored AI-powered systems that simplify your backend, save time, and support your next stage of growth.</p>
-            <button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-400/25 flex items-center group w-full justify-center">
+            <button
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-400/25 flex items-center group w-full justify-center"
+              onClick={() => open("automation", "build_my_automation")}
+            >
               Build My Automation
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -104,7 +109,10 @@ export const ServicesSection = () => {
             <p className="text-gray-300 mb-8 leading-relaxed">
               These private sessions are built for leaders who want clarity. Together, we'll map out a custom AI strategy that aligns with your vision so every decision drives progress.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-400/25 flex items-center group w-full justify-center">
+            <button
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-400/25 flex items-center group w-full justify-center"
+              onClick={() => open("consulting", "book_a_session")}
+            >
               Book a Session
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
