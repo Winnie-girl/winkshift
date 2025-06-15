@@ -1,4 +1,3 @@
-
 import { useCallback, useContext, useState, createContext } from "react";
 
 type ModalState = {
