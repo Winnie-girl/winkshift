@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -48,8 +49,15 @@ export const HeroSection = () => {
                 Steal My Prompts
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="border-2 border-deep-purple-500 hover:border-warm-orange-400 hover:bg-gradient-to-r hover:from-deep-purple-800/50 hover:to-warm-orange-800/50 text-gray-300 hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                View My Services
+              {/* Updated gradient border for brand flair */}
+              <button
+                className="relative px-8 py-4 rounded-full font-semibold transition-all duration-300 text-white flex items-center justify-center group"
+                style={{
+                  border: "2px solid transparent",
+                  background: "linear-gradient(#131c32, #131c32) padding-box, linear-gradient(90deg, #f97316, #2563eb) border-box"
+                }}
+              >
+                <span className="text-gray-100 font-bold">View My Services</span>
               </button>
             </div>
           </div>
