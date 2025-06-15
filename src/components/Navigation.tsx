@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -37,7 +36,15 @@ export const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold bg-gradient-purple-orange bg-clip-text text-transparent hover:scale-105 transition-all duration-300 cursor-pointer">
+            <Link
+              to="/"
+              aria-label="Home"
+              className="text-2xl font-bold bg-gradient-to-r from-[#f97316] via-[#f97316] to-[#2563eb] bg-clip-text text-transparent hover:scale-105 transition-all duration-300 cursor-pointer"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #f97316 10%, #2563eb 90%)"
+              }}
+            >
               Winkshift
             </Link>
           </div>
