@@ -26,6 +26,7 @@ import { Loader2 } from "lucide-react";
 import { BlueprintsList } from "@/components/BlueprintsList";
 
 const emailSchema = z.object({
+  name: z.string().min(2, "Please enter your name"),
   email: z.string().email("Please enter a valid email address"),
   rememberMe: z.boolean().default(false),
 });
@@ -45,6 +46,7 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
   const form = useForm<EmailFormData>({
     resolver: zodResolver(emailSchema),
     defaultValues: {
+      name: "",
       email: "",
       rememberMe: false,
     },
@@ -56,6 +58,7 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
       const { error } = await supabase
         .from("email_subscribers")
         .insert({
+          name: data.name,
           email: data.email,
           remember_me: data.rememberMe,
           source: "blueprints",
@@ -146,6 +149,25 @@ export const EmailCollectionModal = ({ isOpen, onClose }: EmailCollectionModalPr
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">Your Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="text"
+                      placeholder="Enter your name"
+                      className="bg-slate-700 border-slate-600 text-white placeholder:text-gray-400"
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
