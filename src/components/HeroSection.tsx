@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -19,10 +18,7 @@ export const HeroSection = () => {
               <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight overflow-hidden">
                 <span className={`inline-block transition-all duration-1000 delay-300 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
                   I&apos;m <span
-                    className="bg-gradient-to-r from-[#f97316] via-[#f97316] to-[#2563eb] bg-clip-text text-transparent font-bold"
-                    style={{
-                      backgroundImage: "linear-gradient(90deg, #f97316 10%, #2563eb 90%)"
-                    }}
+                    className="text-white font-bold"
                   >
                     Heather
                   </span>
