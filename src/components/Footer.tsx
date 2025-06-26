@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ArrowRight, ExternalLink, Check } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -130,7 +129,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className={`border-t border-gray-700 pt-8 transition-all duration-1000 delay-800 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <p className="text-center text-gray-400 text-sm">
-            © 2024 Tam AI. All rights reserved.
+            © 2024 Winkshift. All rights reserved.
           </p>
         </div>
       </div>
