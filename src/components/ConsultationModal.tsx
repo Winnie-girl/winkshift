@@ -149,9 +149,9 @@ export function ConsultationModal() {
       case "email":
         return <Input {...commonProps} type="email" placeholder="Email Address" disabled={!!state.initialEmail || loading} />;
       case "company":
-        return <Input {...commonProps} placeholder="Company (optional)" required={false} />;
+        return <Input {...commonProps} placeholder="Company" required={false} />;
       case "phone":
-        return <Input {...commonProps} placeholder="Phone (optional)" required={false} />;
+        return <Input {...commonProps} placeholder="Phone" required={false} />;
       case "project_description":
         return <Textarea {...commonProps} placeholder="Describe your project or needs" className="min-h-[100px]" />;
       case "goals":
