@@ -61,5 +61,3 @@ export function ConsultationModalProvider({
 export function useConsultationModal() {
   return useContext(ConsultationModalContext);
 }
-
-// ... end of file

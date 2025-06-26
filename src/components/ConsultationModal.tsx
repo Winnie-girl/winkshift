@@ -16,6 +16,7 @@ const SERVICE_LABELS: Record<string, string> = {
   work_with_me: "Work With Me / Partnership",
   general: "General Inquiry",
   newsletter: "Newsletter Signup",
+  quick_contact: "Quick Contact",
 };
 
 export function ConsultationModal() {
@@ -112,7 +113,9 @@ export function ConsultationModal() {
     close();
   };
 
-  // Steps: 0 - Contact Info, 1 - Project/Details, 2 - Confirmation
+  // Quick contact mode - single step form
+  const isQuickContact = state.serviceType === "quick_contact";
+
   return (
     <Dialog open={state.isOpen} onOpenChange={closeAndReset}>
       <DialogContent className="max-w-lg">
@@ -126,7 +129,9 @@ export function ConsultationModal() {
         <DialogDescription>
           {success
             ? "We'll be in touch shortly. Check your inbox for confirmation!"
-            : "Please provide your information and we'll contact you soon."}
+            : isQuickContact 
+              ? "Send us a quick message and we'll get back to you!"
+              : "Please provide your information and we'll contact you soon."}
         </DialogDescription>
 
         {!success && (
@@ -134,19 +139,37 @@ export function ConsultationModal() {
             className="space-y-4 py-2"
             onSubmit={(e) => {
               e.preventDefault();
-              if (step < 2) return setStep((s) => ((s + 1) as Step));
-              void onSubmit();
+              if (isQuickContact || step >= 1) {
+                void onSubmit();
+              } else {
+                setStep((s) => ((s + 1) as Step));
+              }
             }}
           >
-            {step === 0 && (
+            {(step === 0 || isQuickContact) && (
               <>
                 <Input name="name" value={form.name} onChange={handleChange} disabled={loading} placeholder="Your Name" required />
                 <Input type="email" name="email" value={form.email} onChange={handleChange} disabled={!!state.initialEmail || loading} placeholder="Email" required />
-                <Input name="company" value={form.company} onChange={handleChange} disabled={loading} placeholder="Company (optional)" />
-                <Input name="phone" value={form.phone} onChange={handleChange} disabled={loading} placeholder="Phone (optional)" />
+                {isQuickContact && (
+                  <textarea 
+                    name="project_description" 
+                    value={form.project_description} 
+                    onChange={handleChange} 
+                    disabled={loading} 
+                    placeholder="Your message..." 
+                    className="w-full rounded px-3 py-2 border bg-background min-h-[100px]" 
+                    required
+                  />
+                )}
+                {!isQuickContact && (
+                  <>
+                    <Input name="company" value={form.company} onChange={handleChange} disabled={loading} placeholder="Company (optional)" />
+                    <Input name="phone" value={form.phone} onChange={handleChange} disabled={loading} placeholder="Phone (optional)" />
+                  </>
+                )}
               </>
             )}
-            {step === 1 && (
+            {step === 1 && !isQuickContact && (
               <>
                 {form.service_type !== "newsletter" && (
                   <>
@@ -165,7 +188,7 @@ export function ConsultationModal() {
               </>
             )}
             <div className="flex gap-2 mt-4">
-              {step > 0 && (
+              {step > 0 && !isQuickContact && (
                 <Button type="button" variant="outline" onClick={() => setStep((s) => ((s - 1) as Step))} disabled={loading}>
                   Back
                 </Button>
@@ -175,7 +198,7 @@ export function ConsultationModal() {
                 className="ml-auto"
                 disabled={loading}
               >
-                {step < 1 ? "Next" : "Submit"}
+                {isQuickContact ? "Send Message" : (step < 1 ? "Next" : "Submit")}
               </Button>
             </div>
           </form>
