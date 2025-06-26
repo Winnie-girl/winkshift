@@ -28,6 +28,16 @@ const MODAL_CONFIG = {
     title: "Contact Us",
     description: "Get in touch with us for any inquiries.",
     fields: ["name", "email", "message"]
+  },
+  automation: {
+    title: "Custom AI Automation",
+    description: "Let's build a tailored AI solution for your business.",
+    fields: ["name", "email", "company", "phone", "project_description", "goals", "budget_range", "timeline"]
+  },
+  consulting: {
+    title: "1:1 AI Consulting",
+    description: "Book a private consultation session to discuss your AI strategy.",
+    fields: ["name", "email", "company", "phone", "project_description", "goals", "budget_range", "timeline"]
   }
 };
 
@@ -58,13 +68,14 @@ export function ConsultationModal() {
     setLoading(true);
 
     try {
-      // Prepare data for submission
+      // Prepare data for submission with the new modal_type field
       const submissionData = {
         name: form.name,
         email: form.email,
         company: form.company || null,
         phone: form.phone || null,
         service_type: state.modalType,
+        modal_type: state.modalType, // Add the new modal_type field
         project_description: form.project_description || form.message || null,
         goals: form.goals || null,
         budget_range: form.budget_range || null,

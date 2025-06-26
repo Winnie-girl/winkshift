@@ -57,6 +57,7 @@ export type Database = {
           email: string
           goals: string | null
           id: string
+          modal_type: string
           name: string
           phone: string | null
           preferred_contact_method: string | null
@@ -76,6 +77,7 @@ export type Database = {
           email: string
           goals?: string | null
           id?: string
+          modal_type: string
           name: string
           phone?: string | null
           preferred_contact_method?: string | null
@@ -95,6 +97,7 @@ export type Database = {
           email?: string
           goals?: string | null
           id?: string
+          modal_type?: string
           name?: string
           phone?: string | null
           preferred_contact_method?: string | null
