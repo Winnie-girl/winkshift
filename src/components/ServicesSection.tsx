@@ -1,8 +1,9 @@
+
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { EmailCollectionModal } from "@/components/EmailCollectionModal";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Added import
+import { useNavigate } from "react-router-dom";
 import { useConsultationModal } from "./hooks/useConsultationModal";
 
 export const ServicesSection = () => {

@@ -1,5 +1,5 @@
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import React, { createContext, useContext, useState, useCallback, ReactNode } from "react";
 
 type ModalType = "quick_contact" | "detailed_consultation" | "newsletter" | "general" | "automation" | "consulting";
 
@@ -59,10 +59,10 @@ export function ConsultationModalProvider({ children }: ConsultationModalProvide
     state,
   };
 
-  return (
-    <ConsultationModalContext.Provider value={value}>
-      {children}
-    </ConsultationModalContext.Provider>
+  return React.createElement(
+    ConsultationModalContext.Provider,
+    { value },
+    children
   );
 }
 
