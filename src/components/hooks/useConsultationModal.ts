@@ -1,7 +1,7 @@
 
-import { useCallback, useContext, useState, createContext } from "react";
+import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 
-type ModalType = "quick_contact" | "detailed_consultation" | "newsletter" | "general";
+type ModalType = "quick_contact" | "detailed_consultation" | "newsletter" | "general" | "automation" | "consulting";
 
 type ModalState = {
   isOpen: boolean;
@@ -22,11 +22,11 @@ const ConsultationModalContext = createContext<ConsultationModalContextType>({
   state: { isOpen: false, modalType: "general", source: "" },
 });
 
-export function ConsultationModalProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+type ConsultationModalProviderProps = {
+  children: ReactNode;
+};
+
+export function ConsultationModalProvider({ children }: ConsultationModalProviderProps) {
   const [state, setState] = useState<ModalState>({
     isOpen: false,
     modalType: "general",
@@ -53,13 +53,23 @@ export function ConsultationModalProvider({
     }));
   }, []);
 
+  const value = {
+    open,
+    close,
+    state,
+  };
+
   return (
-    <ConsultationModalContext.Provider value={{ open, close, state }}>
+    <ConsultationModalContext.Provider value={value}>
       {children}
     </ConsultationModalContext.Provider>
   );
 }
 
 export function useConsultationModal() {
-  return useContext(ConsultationModalContext);
+  const context = useContext(ConsultationModalContext);
+  if (!context) {
+    throw new Error("useConsultationModal must be used within a ConsultationModalProvider");
+  }
+  return context;
 }
