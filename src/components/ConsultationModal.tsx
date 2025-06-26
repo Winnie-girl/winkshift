@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -31,12 +32,12 @@ const MODAL_CONFIG = {
   automation: {
     title: "Custom AI Automation",
     description: "Let's build a tailored AI solution for your business.",
-    fields: ["name", "email", "company", "phone", "goals"]
+    fields: ["first_name", "last_name", "email", "company", "phone", "goals"]
   },
   consulting: {
     title: "1:1 AI Consulting",
     description: "Book a private consultation session to discuss your AI strategy.",
-    fields: ["name", "email", "company", "phone", "goals"]
+    fields: ["first_name", "last_name", "email", "company", "phone", "goals"]
   }
 };
 
@@ -46,6 +47,8 @@ export function ConsultationModal() {
   const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     name: "",
+    first_name: "",
+    last_name: "",
     email: state.initialEmail || "",
     company: "",
     phone: "",
@@ -69,7 +72,7 @@ export function ConsultationModal() {
     try {
       // Prepare data for submission with the new modal_type field
       const submissionData = {
-        name: form.name,
+        name: form.name || `${form.first_name} ${form.last_name}`.trim(),
         email: form.email,
         company: form.company || null,
         phone: form.phone || null,
@@ -122,6 +125,8 @@ export function ConsultationModal() {
     setSuccess(false);
     setForm({
       name: "",
+      first_name: "",
+      last_name: "",
       email: state.initialEmail || "",
       company: "",
       phone: "",
@@ -140,12 +145,16 @@ export function ConsultationModal() {
       value: form[fieldName as keyof typeof form],
       onChange: handleChange,
       disabled: loading,
-      required: ["name", "email", "message"].includes(fieldName)
+      required: ["name", "first_name", "last_name", "email", "message"].includes(fieldName)
     };
 
     switch (fieldName) {
       case "name":
         return <Input {...commonProps} placeholder="Your Name" />;
+      case "first_name":
+        return <Input {...commonProps} placeholder="First Name" />;
+      case "last_name":
+        return <Input {...commonProps} placeholder="Last Name" />;
       case "email":
         return <Input {...commonProps} type="email" placeholder="Email Address" disabled={!!state.initialEmail || loading} />;
       case "company":
