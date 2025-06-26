@@ -1,15 +1,17 @@
 
 import { useCallback, useContext, useState, createContext } from "react";
 
+type ModalType = "quick_contact" | "detailed_consultation" | "newsletter" | "general";
+
 type ModalState = {
   isOpen: boolean;
-  serviceType: string;
+  modalType: ModalType;
   source: string;
   initialEmail?: string;
 };
 
 type ConsultationModalContextType = {
-  open: (serviceType: string, source: string, initialEmail?: string) => void;
+  open: (modalType: ModalType, source: string, initialEmail?: string) => void;
   close: () => void;
   state: ModalState;
 };
@@ -17,7 +19,7 @@ type ConsultationModalContextType = {
 const ConsultationModalContext = createContext<ConsultationModalContextType>({
   open: () => {},
   close: () => {},
-  state: { isOpen: false, serviceType: "", source: "" },
+  state: { isOpen: false, modalType: "general", source: "" },
 });
 
 export function ConsultationModalProvider({
@@ -27,16 +29,16 @@ export function ConsultationModalProvider({
 }) {
   const [state, setState] = useState<ModalState>({
     isOpen: false,
-    serviceType: "",
+    modalType: "general",
     source: "",
     initialEmail: undefined,
   });
 
   const open = useCallback(
-    (serviceType: string, source: string, initialEmail?: string) => {
+    (modalType: ModalType, source: string, initialEmail?: string) => {
       setState({
         isOpen: true,
-        serviceType,
+        modalType,
         source,
         initialEmail,
       });

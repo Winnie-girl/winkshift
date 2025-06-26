@@ -3,25 +3,36 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useConsultationModal } from "./hooks/useConsultationModal";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-type Step = 0 | 1 | 2;
-
-const SERVICE_LABELS: Record<string, string> = {
-  automation: "Custom AI Automation",
-  consulting: "1:1 Consulting",
-  get_started: "AI Consultation",
-  work_with_me: "Work With Me / Partnership",
-  general: "General Inquiry",
-  newsletter: "Newsletter Signup",
-  quick_contact: "Quick Contact",
+const MODAL_CONFIG = {
+  quick_contact: {
+    title: "Quick Contact",
+    description: "Send us a quick message and we'll get back to you!",
+    fields: ["name", "email", "message"]
+  },
+  detailed_consultation: {
+    title: "AI Consultation",
+    description: "Let's discuss your AI automation needs in detail.",
+    fields: ["name", "email", "company", "phone", "project_description", "goals", "budget_range", "timeline"]
+  },
+  newsletter: {
+    title: "Newsletter Signup",
+    description: "Stay updated with the latest AI automation tips and insights.",
+    fields: ["name", "email"]
+  },
+  general: {
+    title: "Contact Us",
+    description: "Get in touch with us for any inquiries.",
+    fields: ["name", "email", "message"]
+  }
 };
 
 export function ConsultationModal() {
   const { state, close } = useConsultationModal();
-  const [step, setStep] = useState<Step>(0);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
@@ -29,37 +40,41 @@ export function ConsultationModal() {
     email: state.initialEmail || "",
     company: "",
     phone: "",
-    service_type: state.serviceType,
     project_description: "",
     goals: "",
-    current_challenges: "",
     budget_range: "",
     timeline: "",
-    preferred_contact_method: "",
-    referral_info: "",
+    message: "",
   });
 
-  // Update service type if/when modal is opened by another CTA
-  if (form.service_type !== state.serviceType) {
-    form.service_type = state.serviceType;
-  }
-
+  const config = MODAL_CONFIG[state.modalType];
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoading(true);
 
     try {
+      // Prepare data for submission
+      const submissionData = {
+        name: form.name,
+        email: form.email,
+        company: form.company || null,
+        phone: form.phone || null,
+        service_type: state.modalType,
+        project_description: form.project_description || form.message || null,
+        goals: form.goals || null,
+        budget_range: form.budget_range || null,
+        timeline: form.timeline || null,
+        source: state.source,
+        status: 'new'
+      };
+
       // Save to consultation_requests table
-      const { error } = await supabase.from("consultation_requests").insert([
-        {
-          ...form,
-          service_type: state.serviceType,
-          source: state.source,
-        },
-      ]);
+      const { error } = await supabase.from("consultation_requests").insert([submissionData]);
       if (error) throw error;
 
       // Call Edge function for notification (emails)
@@ -68,7 +83,7 @@ export function ConsultationModal() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, service_type: state.serviceType, source: state.source }),
+          body: JSON.stringify(submissionData),
         }
       );
 
@@ -76,11 +91,11 @@ export function ConsultationModal() {
         const msg = await edgeRes.text();
         throw new Error(msg || "Failed to send email notifications");
       }
+      
       setSuccess(true);
       toast({
         title: "Request submitted!",
-        description:
-          "Your information was received. We'll follow up soon. Confirmation has been sent to your email.",
+        description: "Your information was received. We'll follow up soon. Confirmation has been sent to your email.",
       });
     } catch (e: any) {
       toast({
@@ -94,115 +109,81 @@ export function ConsultationModal() {
   };
 
   const closeAndReset = () => {
-    setStep(0);
     setSuccess(false);
     setForm({
       name: "",
       email: state.initialEmail || "",
       company: "",
       phone: "",
-      service_type: state.serviceType,
       project_description: "",
       goals: "",
-      current_challenges: "",
       budget_range: "",
       timeline: "",
-      preferred_contact_method: "",
-      referral_info: "",
+      message: "",
     });
     close();
   };
 
-  // Quick contact mode - single step form
-  const isQuickContact = state.serviceType === "quick_contact";
+  const renderField = (fieldName: string) => {
+    const commonProps = {
+      name: fieldName,
+      value: form[fieldName as keyof typeof form],
+      onChange: handleChange,
+      disabled: loading,
+      required: ["name", "email", "message"].includes(fieldName)
+    };
+
+    switch (fieldName) {
+      case "name":
+        return <Input {...commonProps} placeholder="Your Name" />;
+      case "email":
+        return <Input {...commonProps} type="email" placeholder="Email Address" disabled={!!state.initialEmail || loading} />;
+      case "company":
+        return <Input {...commonProps} placeholder="Company (optional)" required={false} />;
+      case "phone":
+        return <Input {...commonProps} placeholder="Phone (optional)" required={false} />;
+      case "project_description":
+        return <Textarea {...commonProps} placeholder="Describe your project or needs" className="min-h-[100px]" />;
+      case "goals":
+        return <Textarea {...commonProps} placeholder="What are your main goals?" required={false} />;
+      case "budget_range":
+        return <Input {...commonProps} placeholder="Budget Range (optional)" required={false} />;
+      case "timeline":
+        return <Input {...commonProps} placeholder="Timeline (optional)" required={false} />;
+      case "message":
+        return <Textarea {...commonProps} placeholder="Your message..." className="min-h-[100px]" />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <Dialog open={state.isOpen} onOpenChange={closeAndReset}>
       <DialogContent className="max-w-lg">
         <DialogTitle>
-          {
-            success
-              ? "Thank you for reaching out!"
-              : SERVICE_LABELS[state.serviceType] || "Contact Request"
-          }
+          {success ? "Thank you for reaching out!" : config.title}
         </DialogTitle>
         <DialogDescription>
-          {success
+          {success 
             ? "We'll be in touch shortly. Check your inbox for confirmation!"
-            : isQuickContact 
-              ? "Send us a quick message and we'll get back to you!"
-              : "Please provide your information and we'll contact you soon."}
+            : config.description
+          }
         </DialogDescription>
 
         {!success && (
-          <form
-            className="space-y-4 py-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (isQuickContact || step >= 1) {
-                void onSubmit();
-              } else {
-                setStep((s) => ((s + 1) as Step));
-              }
-            }}
-          >
-            {(step === 0 || isQuickContact) && (
-              <>
-                <Input name="name" value={form.name} onChange={handleChange} disabled={loading} placeholder="Your Name" required />
-                <Input type="email" name="email" value={form.email} onChange={handleChange} disabled={!!state.initialEmail || loading} placeholder="Email" required />
-                {isQuickContact && (
-                  <textarea 
-                    name="project_description" 
-                    value={form.project_description} 
-                    onChange={handleChange} 
-                    disabled={loading} 
-                    placeholder="Your message..." 
-                    className="w-full rounded px-3 py-2 border bg-background min-h-[100px]" 
-                    required
-                  />
-                )}
-                {!isQuickContact && (
-                  <>
-                    <Input name="company" value={form.company} onChange={handleChange} disabled={loading} placeholder="Company (optional)" />
-                    <Input name="phone" value={form.phone} onChange={handleChange} disabled={loading} placeholder="Phone (optional)" />
-                  </>
-                )}
-              </>
-            )}
-            {step === 1 && !isQuickContact && (
-              <>
-                {form.service_type !== "newsletter" && (
-                  <>
-                    <textarea name="project_description" value={form.project_description} onChange={handleChange} disabled={loading} placeholder="Project Description" className="w-full rounded px-3 py-2 border bg-background" />
-                    <textarea name="goals" value={form.goals} onChange={handleChange} disabled={loading} placeholder="Your Goals" className="w-full rounded px-3 py-2 border bg-background" />
-                    <textarea name="current_challenges" value={form.current_challenges} onChange={handleChange} disabled={loading} placeholder="Current Challenges" className="w-full rounded px-3 py-2 border bg-background" />
-                    <Input name="budget_range" value={form.budget_range} onChange={handleChange} disabled={loading} placeholder="Budget Range (optional)" />
-                    <Input name="timeline" value={form.timeline} onChange={handleChange} disabled={loading} placeholder="Timeline (optional)" />
-                    <Input name="preferred_contact_method" value={form.preferred_contact_method} onChange={handleChange} disabled={loading} placeholder="Preferred Contact Method" />
-                    <Input name="referral_info" value={form.referral_info} onChange={handleChange} disabled={loading} placeholder="How did you hear about us? (optional)" />
-                  </>
-                )}
-                {form.service_type === "newsletter" && (
-                  <p className="text-sm text-muted-foreground text-center">You're signing up for the newsletter! Just hit next to confirm.</p>
-                )}
-              </>
-            )}
-            <div className="flex gap-2 mt-4">
-              {step > 0 && !isQuickContact && (
-                <Button type="button" variant="outline" onClick={() => setStep((s) => ((s - 1) as Step))} disabled={loading}>
-                  Back
-                </Button>
-              )}
-              <Button
-                type="submit"
-                className="ml-auto"
-                disabled={loading}
-              >
-                {isQuickContact ? "Send Message" : (step < 1 ? "Next" : "Submit")}
-              </Button>
-            </div>
+          <form onSubmit={onSubmit} className="space-y-4 py-2">
+            {config.fields.map((fieldName) => (
+              <div key={fieldName}>
+                {renderField(fieldName)}
+              </div>
+            ))}
+            
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Sending..." : "Submit"}
+            </Button>
           </form>
         )}
+        
         {success && (
           <Button onClick={closeAndReset} className="w-full">Close</Button>
         )}
