@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -32,12 +31,12 @@ const MODAL_CONFIG = {
   automation: {
     title: "Custom AI Automation",
     description: "Let's build a tailored AI solution for your business.",
-    fields: ["name", "email", "company", "phone", "project_description", "goals", "budget_range", "timeline"]
+    fields: ["name", "email", "company", "phone", "goals"]
   },
   consulting: {
     title: "1:1 AI Consulting",
     description: "Book a private consultation session to discuss your AI strategy.",
-    fields: ["name", "email", "company", "phone", "project_description", "goals", "budget_range", "timeline"]
+    fields: ["name", "email", "company", "phone", "goals"]
   }
 };
 
